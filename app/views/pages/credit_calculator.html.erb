@@ -1,0 +1,47 @@
+<div class="row toppadding">
+ <div class="col-md-8 col-md-offset-2">
+    <div class="well">
+      <%= form_tag calculate_credit_path, method: :get, class: 'form-horizontal' do %>
+        <div class="form-group">
+          <%= label_tag :credit_period, 'Срок кредитования', class: 'col-sm-4 control-label' %>
+          <div class="col-sm-8">
+            <%= text_field_tag :credit_period, nil, class: 'form-control', placeholder: 'количество месяцев' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= label_tag :credit_sum, 'Сумма кредита', class: 'col-sm-4 control-label' %>
+          <div class="col-sm-8">
+            <%= text_field_tag :credit_sum, nil, class: 'form-control', placeholder: 'сумма' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= label_tag :percent_rate, 'Процентная ставка', class: 'col-sm-4 control-label' %>
+          <div class="col-sm-8">
+            <%= text_field_tag :percent_rate, nil, class: 'form-control', placeholder: '% годовых' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-4 col-sm-8">
+            <div class="radio">
+              <label>
+                <%= radio_button_tag(:scheme, "annuity") %>
+                Аннуитетная схема начисления процентов
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <%= radio_button_tag(:scheme, "standard") %>
+                Стандартная схема начисления процентов
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-4 col-sm-8">
+            <button type="submit" class="btn btn-default">Посчитать</button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+ </div>
+</div>
