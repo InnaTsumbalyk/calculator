@@ -1,5 +1,7 @@
 # coding: utf-8
 class CreditCalculator
+  require 'csv'
+
   attr_reader :credit_period, :credit_sum, :percent_rate, :payment, :payment_months, :total_sum, :scheme, :errors
 
   def initialize(credit_period, credit_sum, percent_rate, scheme)
@@ -26,6 +28,21 @@ class CreditCalculator
   def valid?
     validate
     @errors.count == 0
+  end
+
+  def to_csv(options = {})
+    calculate
+    columns = ['Месяц', 'Задолженность по кредиту', 'Погашение кредита', 'Проценты по кредиту', 'Выплаты в месяц']
+    CSV.generate(options) do |csv|
+      csv << ['Cхема начисления процентов:', I18n.t(@scheme.to_sym)]
+      csv << ['Срок кредитования:', "#{@credit_period} месяцев"]
+      csv << ['Сумма кредита:', @credit_sum]
+      csv << ['Сумма выплат:', @total_sum.round(2)]
+      csv << ['Переплата по кредиту:', (@total_sum - @credit_sum).round(2)]
+      csv << ['']
+      csv << columns
+      @payment_months.each { |m| csv << m.values }
+    end
   end
 
   private

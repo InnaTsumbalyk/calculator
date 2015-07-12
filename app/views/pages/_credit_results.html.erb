@@ -1,10 +1,13 @@
 <div class="well">
   <h4 class="text-center">Базовые условия</h4>
+  <p>Cхема начисления процентов: <%= t(@calc.scheme.to_sym) %></p>
   <p>Срок кредитования: <%= @calc.credit_period %> месяцев</p>
   <p>Сумма кредита: <%= @calc.credit_sum %></p>
   <p>Сумма выплат: <%= @calc.total_sum.round(2) %></p>
   <p>Переплата по кредиту: <%= (@calc.total_sum - @calc.credit_sum).round(2) %></p>
-  <p>Ежемесячная сумма выплат: <%= @calc.payment %></p>
+  <% if @calc.payment > 0 %>
+    <p>Ежемесячная сумма выплат: <%= @calc.payment %></p>
+  <% end %>
 
   <h4 class="text-center">Схема выплат по кредиту</h4>
   <table class="table">
@@ -36,4 +39,16 @@
         </tr>
     </tbody>
   </table>
+
+  <h4 class="text-center">Сохранить</h4>
+  <p><%= link_to 'Скачать CSV', download_calc_result_path(credit_period: @calc.credit_period,
+                                                  credit_sum: @calc.credit_sum,
+                                                  percent_rate: @calc.percent_rate,
+                                                  scheme: @calc.scheme,
+                                                  format: :csv) %></p>
+  <p><%= link_to 'Скачать XLS', download_calc_result_path(credit_period: @calc.credit_period,
+                                                  credit_sum: @calc.credit_sum,
+                                                  percent_rate: @calc.percent_rate,
+                                                  scheme: @calc.scheme,
+                                                  format: :csv) %></p>
 </div>
