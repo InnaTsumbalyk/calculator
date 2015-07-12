@@ -1,3 +1,4 @@
+# coding: utf-8
 class CreditCalculator
   attr_reader :credit_period, :credit_sum, :percent_rate, :payment, :payment_months, :total_sum, :scheme, :errors
 
@@ -18,8 +19,13 @@ class CreditCalculator
     elsif @scheme == 'standard'
       standard_calc
     else
-      @errors << 'Scheme type error'
+      self
     end
+  end
+
+  def valid?
+    validate
+    @errors.count == 0
   end
 
   private
@@ -50,6 +56,13 @@ class CreditCalculator
       month_hash
     end
     self
+  end
+
+  def validate
+    @errors << 'Неверная схема начисления процентов' unless ['annuity', 'standard'].include?(@scheme)
+    @errors << 'Срок кредитования не может быть менше 1 месяца' if @credit_period < 1
+    @errors << 'Введите сумму кредита' if @credit_sum < 1
+    @errors << 'Процентная ставка должна быть в диапазоне 1..100' if @percent_rate < 1 || @percent_rate > 100
   end
 
 

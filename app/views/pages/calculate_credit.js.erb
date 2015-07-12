@@ -1,1 +1,5 @@
-$('#calc-result').html("<%= escape_javascript render 'credit_results' %>");
+<% if @error_messages.present? %>
+  $('.error-messages').html("<%= escape_javascript render 'errors' %>");
+<% else %>
+  $('#calc-result').html("<%= escape_javascript render 'credit_results' %>");
+<% end %>
