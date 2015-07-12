@@ -1,7 +1,7 @@
 <div class="row toppadding">
  <div class="col-md-8 col-md-offset-2">
     <div class="well">
-      <%= form_tag calculate_credit_path, method: :get, class: 'form-horizontal' do %>
+      <%= form_tag calculate_credit_path, method: :get, remote: true, class: 'form-horizontal' do %>
         <div class="form-group">
           <%= label_tag :credit_period, 'Срок кредитования', class: 'col-sm-4 control-label' %>
           <div class="col-sm-8">
@@ -43,5 +43,6 @@
         </div>
       <% end %>
     </div>
+    <div class="toppadding" id="calc-result"></div>
  </div>
 </div>

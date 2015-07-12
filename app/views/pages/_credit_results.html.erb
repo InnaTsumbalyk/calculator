@@ -1,0 +1,39 @@
+<div class="well">
+  <h4 class="text-center">Базовые условия</h4>
+  <p>Срок кредитования: <%= @calc.credit_period %> месяцев</p>
+  <p>Сумма кредита: <%= @calc.credit_sum %></p>
+  <p>Сумма выплат: <%= @calc.total_sum.round(2) %></p>
+  <p>Переплата по кредиту: <%= (@calc.total_sum - @calc.credit_sum).round(2) %></p>
+  <p>Ежемесячная сумма выплат: <%= @calc.payment %></p>
+
+  <h4 class="text-center">Схема выплат по кредиту</h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Месяц</th>
+        <th>Задолженность по кредиту</th>
+        <th>Погашение кредита</th>
+        <th>Проценты по кредиту</th>
+        <th>Выплаты в месяц</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @calc.payment_months.each do |month| %>
+        <tr>
+          <th scope="row"><%= month[:number] %></th>
+          <td><%= month[:sum] %></td>
+          <td><%= month[:main_payment] %></td>
+          <td><%= month[:credit_payment] %></td>
+          <td><%= month[:payment] %></td>
+        </tr>
+      <% end %>
+        <tr>
+          <th scope="row"></th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
